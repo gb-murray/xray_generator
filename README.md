@@ -22,6 +22,22 @@ python -m pip install -e .
 
 Installation provides the `xray-sim` and `xrd-generate` commands.
 
+## Interactive walkthrough
+
+The [end-to-end notebook](examples/demo.ipynb) walks through
+material definition, crystallographic texture, moving exposures, cached means,
+Poisson observations, count-conserving polar views, and recoverable data exports.
+It also includes small reference-rate and lazy-geometry examples.
+
+```bash
+python -m pip install jupyterlab ipykernel
+python -m jupyter lab examples/end_to_end_simulation.ipynb
+```
+
+Choose the Python environment containing the installed package and run all cells.
+The default uses a 512 by 512 detector; generated outputs stay under the ignored
+`datasets/notebook_demo/` directory. The notebook source is saved without outputs.
+
 ## Run a simulation
 
 The textured example defines nominal FCC Cu and HCP Ti cells, persistent

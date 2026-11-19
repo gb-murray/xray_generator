@@ -25,6 +25,7 @@ include = [
     { path = "configs/fcc_texture_grain_example.json", format = "sdist" },
     { path = "configs/v1/reference_scan_fixture.json", format = "sdist" },
     { path = "configs/v1/crystallographic_texture_demo.json", format = "sdist" },
+    { path = "examples/end_to_end_simulation.ipynb", format = "sdist" },
     { path = "docs/simulation.md", format = "sdist" },
     { path = "docs/atomic_data_provenance.md", format = "sdist" },
     { path = "docs/configuration.md", format = "sdist" },
