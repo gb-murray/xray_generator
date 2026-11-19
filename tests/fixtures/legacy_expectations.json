@@ -1,0 +1,267 @@
+{
+  "physics_profile": "legacy_relative_v1",
+  "fixture_arrays": "tests/fixtures/legacy_baseline_v1.npz",
+  "fixture_semantics": "Relative intensities, not expected photon counts. Fixed environment hashes are audit checks; parity tests use explicit floating tolerances.",
+  "fixtures": {
+    "fcc_cu": {
+      "configuration": {
+        "experiment": {
+          "seed": 8128,
+          "num_grains": 64,
+          "max_hkl_index": 2,
+          "incident_convergence_full_angle_mrad": 3.5,
+          "material": "Cu",
+          "crystal_structure": "FCC",
+          "lattice_parameter": 0.361
+        },
+        "detector": {
+          "width_px": 96,
+          "height_px": 96,
+          "distance_mm": 20.0,
+          "pixel_size_mm": 0.15,
+          "central_beam_blocker_fwhm_px": 0.0
+        },
+        "output": {
+          "store_grains": false,
+          "store_peaks": false
+        },
+        "grain": {
+          "size_std": 0.0,
+          "strain_mean": 0.001,
+          "strain_std": 0.0
+        }
+      },
+      "shape": [
+        96,
+        96
+      ],
+      "num_grains": 64,
+      "num_peaks": 94,
+      "sum_relative_intensity": 1559.0592874366503,
+      "l2_relative_intensity": 155.3732243984474,
+      "array_sha256": "90f9ec0251a5807f3c9f08325874c02fd18855f207c1051255e2daa22c5d0ad5",
+      "metadata": {
+        "configuration": {
+          "experiment": {
+            "material": "Cu",
+            "crystal_structure": "FCC",
+            "lattice_parameter": 0.361,
+            "unit_cell": null,
+            "max_hkl_index": 2,
+            "length_unit": "nm",
+            "wavelength": 0.0514,
+            "num_grains": 64,
+            "seed": 8128,
+            "incident_convergence_full_angle_mrad": 3.5
+          },
+          "grain": {
+            "size_mean": 33500.0,
+            "size_std": 0.0,
+            "size_unit": "nm",
+            "size_distribution": "lognormal",
+            "strain_mean": 0.001,
+            "strain_std": 0.0,
+            "aspect_ratio": 1.5
+          },
+          "texture": {
+            "type": "random"
+          },
+          "detector": {
+            "width_px": 96,
+            "height_px": 96,
+            "distance_mm": 20.0,
+            "pixel_size_mm": 0.15,
+            "ewald_tolerance": 0.1,
+            "bin_to_width_px": null,
+            "bin_to_height_px": null,
+            "central_beam_blocker_fwhm_px": 0.0
+          },
+          "scattering": {
+            "shape_factor": 0.9,
+            "instrumental_fwhm_px": 4.709640090061899,
+            "intensity_scale": 1.0,
+            "profile": "voigt",
+            "lorentz_model": "none"
+          },
+          "output": {
+            "directory": "output",
+            "prefix": "simulation",
+            "store_grains": false,
+            "store_peaks": false,
+            "image_format": "auto"
+          }
+        },
+        "texture": {
+          "type": "random"
+        },
+        "odf_class": "RandomODF",
+        "grain_lattice_model": "GrainCubic",
+        "detector_readout": {
+          "native_shape_px": [
+            96,
+            96
+          ],
+          "output_shape_px": [
+            96,
+            96
+          ],
+          "native_pixel_size_mm": 0.15,
+          "effective_pixel_size_mm": [
+            0.15,
+            0.15
+          ],
+          "binning_ratio": [
+            1.0,
+            1.0
+          ],
+          "native_instrumental_fwhm_px": 4.709640090061899,
+          "effective_instrumental_fwhm_px": [
+            4.709640090061899,
+            4.709640090061899
+          ],
+          "method": "flux_conserving_area"
+        }
+      }
+    },
+    "hcp_ti": {
+      "configuration": {
+        "experiment": {
+          "seed": 8128,
+          "num_grains": 64,
+          "max_hkl_index": 2,
+          "incident_convergence_full_angle_mrad": 3.5,
+          "material": "Ti",
+          "crystal_structure": "HCP",
+          "lattice_parameter": 0.295,
+          "unit_cell": {
+            "a": 0.295,
+            "b": 0.295,
+            "c": 0.4683,
+            "alpha_deg": 90.0,
+            "beta_deg": 90.0,
+            "gamma_deg": 120.0
+          }
+        },
+        "detector": {
+          "width_px": 96,
+          "height_px": 96,
+          "distance_mm": 20.0,
+          "pixel_size_mm": 0.15,
+          "central_beam_blocker_fwhm_px": 0.0
+        },
+        "output": {
+          "store_grains": false,
+          "store_peaks": false
+        },
+        "grain": {
+          "size_std": 0.0,
+          "strain_mean": 0.001,
+          "strain_std": 0.0
+        }
+      },
+      "shape": [
+        96,
+        96
+      ],
+      "num_grains": 64,
+      "num_peaks": 71,
+      "sum_relative_intensity": 486.8643077503207,
+      "l2_relative_intensity": 35.81999593480839,
+      "array_sha256": "afd7e0d9c7902ef9ae63632935becd55f67d05af64c1038c5d40046e7b1ca635",
+      "metadata": {
+        "configuration": {
+          "experiment": {
+            "material": "Ti",
+            "crystal_structure": "HCP",
+            "lattice_parameter": 0.295,
+            "unit_cell": {
+              "a": 0.295,
+              "b": 0.295,
+              "c": 0.4683,
+              "alpha_deg": 90.0,
+              "beta_deg": 90.0,
+              "gamma_deg": 120.0
+            },
+            "max_hkl_index": 2,
+            "length_unit": "nm",
+            "wavelength": 0.0514,
+            "num_grains": 64,
+            "seed": 8128,
+            "incident_convergence_full_angle_mrad": 3.5
+          },
+          "grain": {
+            "size_mean": 33500.0,
+            "size_std": 0.0,
+            "size_unit": "nm",
+            "size_distribution": "lognormal",
+            "strain_mean": 0.001,
+            "strain_std": 0.0,
+            "aspect_ratio": 1.5
+          },
+          "texture": {
+            "type": "random"
+          },
+          "detector": {
+            "width_px": 96,
+            "height_px": 96,
+            "distance_mm": 20.0,
+            "pixel_size_mm": 0.15,
+            "ewald_tolerance": 0.1,
+            "bin_to_width_px": null,
+            "bin_to_height_px": null,
+            "central_beam_blocker_fwhm_px": 0.0
+          },
+          "scattering": {
+            "shape_factor": 0.9,
+            "instrumental_fwhm_px": 4.709640090061899,
+            "intensity_scale": 1.0,
+            "profile": "voigt",
+            "lorentz_model": "none"
+          },
+          "output": {
+            "directory": "output",
+            "prefix": "simulation",
+            "store_grains": false,
+            "store_peaks": false,
+            "image_format": "auto"
+          }
+        },
+        "texture": {
+          "type": "random"
+        },
+        "odf_class": "RandomODF",
+        "grain_lattice_model": "GrainGeneral",
+        "detector_readout": {
+          "native_shape_px": [
+            96,
+            96
+          ],
+          "output_shape_px": [
+            96,
+            96
+          ],
+          "native_pixel_size_mm": 0.15,
+          "effective_pixel_size_mm": [
+            0.15,
+            0.15
+          ],
+          "binning_ratio": [
+            1.0,
+            1.0
+          ],
+          "native_instrumental_fwhm_px": 4.709640090061899,
+          "effective_instrumental_fwhm_px": [
+            4.709640090061899,
+            4.709640090061899
+          ],
+          "method": "flux_conserving_area"
+        }
+      }
+    }
+  },
+  "parity_tolerance": {
+    "rtol": 1e-12,
+    "atol": 1e-12
+  },
+  "schema_version": "xray_generator.legacy_expectations/1"
+}

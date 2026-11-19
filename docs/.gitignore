@@ -1,0 +1,5 @@
+# Keep planning documents and machine-specific reports local by default.
+*
+!.gitignore
+!simulation.md
+!atomic_data_provenance.md

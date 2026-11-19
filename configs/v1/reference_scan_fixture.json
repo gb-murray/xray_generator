@@ -1,0 +1,113 @@
+{
+  "schema_version": "xray_generator.fixture_experiment/1",
+  "profile": "synthetic_reference_fixture_v1",
+  "material": {
+    "schema_version": "xray_generator.material_recipe/1.0",
+    "generator_version": "piecewise_linear_binary_v1",
+    "realization_id": "material-000001",
+    "bounds_mm": [
+      [
+        -2.0,
+        2.0
+      ],
+      [
+        -0.1,
+        0.1
+      ],
+      [
+        0.0,
+        0.001
+      ]
+    ],
+    "phases": [
+      {
+        "phase_id": "A",
+        "elements": [
+          "fixture-A"
+        ],
+        "elemental_mass_fractions": [
+          1.0
+        ],
+        "density_g_cm3": 1.0,
+        "source_id": "synthetic_fixture"
+      },
+      {
+        "phase_id": "B",
+        "elements": [
+          "fixture-B"
+        ],
+        "elemental_mass_fractions": [
+          1.0
+        ],
+        "density_g_cm3": 1.0,
+        "source_id": "synthetic_fixture"
+      }
+    ],
+    "regions": [
+      {
+        "x_nodes_mm": [
+          -2.0,
+          0.0
+        ],
+        "first_phase_mass_fractions": [
+          1.0,
+          1.0
+        ]
+      },
+      {
+        "x_nodes_mm": [
+          0.0,
+          2.0
+        ],
+        "first_phase_mass_fractions": [
+          0.0,
+          0.0
+        ]
+      }
+    ]
+  },
+  "reference": {
+    "component_ids": [
+      "A",
+      "B"
+    ],
+    "synthetic_ring_size": 16,
+    "modality": "xrd",
+    "background_included": true
+  },
+  "exposures": [
+    {
+      "exposure_id": "boundary-forward",
+      "start_s": 0.0,
+      "stop_s": 0.1,
+      "center_at_zero_mm": -0.5,
+      "velocity_mm_s": 10.0,
+      "beam_width_mm": 0.2
+    },
+    {
+      "exposure_id": "boundary-overlap",
+      "start_s": 0.05,
+      "stop_s": 0.15,
+      "center_at_zero_mm": -0.5,
+      "velocity_mm_s": 10.0,
+      "beam_width_mm": 0.2
+    }
+  ],
+  "integration": {
+    "atol": 1e-07,
+    "rtol": 1e-06,
+    "max_evaluations": 10000,
+    "max_intervals": 1024,
+    "max_depth": 24,
+    "max_working_bytes": 67108864
+  },
+  "max_total_evaluations": 100000,
+  "cache_memory_bytes": 8388608,
+  "readout": {
+    "root_seed": 17,
+    "replicate_ids": [
+      701,
+      702
+    ]
+  }
+}

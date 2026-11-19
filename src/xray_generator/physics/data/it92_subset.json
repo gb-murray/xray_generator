@@ -1,0 +1,77 @@
+{
+  "schema_version": "xray_generator.it92_subset/1",
+  "upstream_url": "https://raw.githubusercontent.com/project-gemmi/gemmi/v0.7.5/include/gemmi/it92.hpp",
+  "upstream_version": "gemmi-v0.7.5",
+  "upstream_sha256": "3e113254f8f43276afb202b36894034120b15d22c756def707f86c541cbe6d48",
+  "copyright": "Copyright 2019 Global Phasing Ltd.",
+  "license": "MPL-2.0",
+  "license_url": "https://www.mozilla.org/MPL/2.0/",
+  "coefficient_convention": "f0(s)=sum_i a_i exp(-b_i s^2)+c; s=|G|/2 in inverse angstrom",
+  "validity_s_A_inv": [
+    0.0,
+    2.0
+  ],
+  "normalization": "unmodified IT92 neutral-atom coefficients",
+  "elements": {
+    "Cu": {
+      "a": [
+        13.338,
+        7.1676,
+        5.6158,
+        1.6735
+      ],
+      "b": [
+        3.5828,
+        0.247,
+        11.3966,
+        64.8126
+      ],
+      "c": 1.191
+    },
+    "Ti": {
+      "a": [
+        9.7595,
+        7.3558,
+        1.6991,
+        1.9021
+      ],
+      "b": [
+        7.8508,
+        0.5,
+        35.6338,
+        116.105
+      ],
+      "c": 1.2807
+    },
+    "Fe": {
+      "a": [
+        11.7695,
+        7.3573,
+        3.5222,
+        2.3045
+      ],
+      "b": [
+        4.7611,
+        0.3072,
+        15.3535,
+        76.8805
+      ],
+      "c": 1.0369
+    },
+    "Nb": {
+      "a": [
+        17.6142,
+        12.0144,
+        4.04183,
+        3.53346
+      ],
+      "b": [
+        1.18865,
+        11.766,
+        0.204785,
+        69.7957
+      ],
+      "c": 3.75591
+    }
+  }
+}

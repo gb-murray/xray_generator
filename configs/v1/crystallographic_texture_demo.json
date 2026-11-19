@@ -1,0 +1,285 @@
+{
+  "schema_version": "xray_generator.crystallographic_experiment/1",
+  "profile": "static_kinematic_gaussian_v1",
+  "material": {
+    "schema_version": "xray_generator.material_recipe/1.0",
+    "generator_version": "piecewise_linear_binary_v1",
+    "realization_id": "cu-ti-interface-001",
+    "bounds_mm": [
+      [
+        -2.0,
+        2.0
+      ],
+      [
+        -0.1,
+        0.1
+      ],
+      [
+        0.0,
+        0.001
+      ]
+    ],
+    "phases": [
+      {
+        "phase_id": "cu_fcc",
+        "elements": [
+          "Cu"
+        ],
+        "elemental_mass_fractions": [
+          1.0
+        ],
+        "density_g_cm3": 8.971719800606015,
+        "source_id": "explicit_cell_neutral_IT92"
+      },
+      {
+        "phase_id": "ti_hcp",
+        "elements": [
+          "Ti"
+        ],
+        "elemental_mass_fractions": [
+          1.0
+        ],
+        "density_g_cm3": 4.504187709559429,
+        "source_id": "explicit_cell_neutral_IT92"
+      }
+    ],
+    "regions": [
+      {
+        "x_nodes_mm": [
+          -2.0,
+          0.0
+        ],
+        "first_phase_mass_fractions": [
+          1.0,
+          1.0
+        ]
+      },
+      {
+        "x_nodes_mm": [
+          0.0,
+          2.0
+        ],
+        "first_phase_mass_fractions": [
+          0.0,
+          0.0
+        ]
+      }
+    ]
+  },
+  "crystallography": {
+    "phase_specs": [
+      {
+        "crystal": {
+          "phase_id": "cu_fcc",
+          "cell_A": [
+            3.61,
+            3.61,
+            3.61,
+            90.0,
+            90.0,
+            90.0
+          ],
+          "sites": [
+            {
+              "element": "Cu",
+              "fractional_xyz": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "occupancy": 1.0
+            },
+            {
+              "element": "Cu",
+              "fractional_xyz": [
+                0.0,
+                0.5,
+                0.5
+              ],
+              "occupancy": 1.0
+            },
+            {
+              "element": "Cu",
+              "fractional_xyz": [
+                0.5,
+                0.0,
+                0.5
+              ],
+              "occupancy": 1.0
+            },
+            {
+              "element": "Cu",
+              "fractional_xyz": [
+                0.5,
+                0.5,
+                0.0
+              ],
+              "occupancy": 1.0
+            }
+          ],
+          "scattering_model": "neutral_IT92_no_dispersion",
+          "source": "nominal_demo_cell_and_explicit_monatomic_basis_v1"
+        },
+        "texture": {
+          "kind": "fiber",
+          "num_orientations": 4096,
+          "seed": 1211,
+          "crystal_direction": [
+            0.5773502691896258,
+            0.5773502691896258,
+            0.5773502691896258
+          ],
+          "sample_direction": [
+            0.5,
+            0.0,
+            0.8660254037844385
+          ],
+          "spread_deg": 14.0,
+          "center_quaternion": [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "spin_center_deg": 0.0,
+          "spin_width_deg": 360.0,
+          "spin_kappa": 0.0,
+          "isotropic_fraction": 0.15,
+          "sample_to_lab_wxyz": [
+            0.7071067811865475,
+            0.0,
+            0.7071067811865475,
+            0.0
+          ]
+        },
+        "coherent_domain_nm": 10.0,
+        "shape_factor": 0.9
+      },
+      {
+        "crystal": {
+          "phase_id": "ti_hcp",
+          "cell_A": [
+            2.95,
+            2.95,
+            4.683,
+            90.0,
+            90.0,
+            120.0
+          ],
+          "sites": [
+            {
+              "element": "Ti",
+              "fractional_xyz": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "occupancy": 1.0
+            },
+            {
+              "element": "Ti",
+              "fractional_xyz": [
+                0.6666666666666666,
+                0.3333333333333333,
+                0.5
+              ],
+              "occupancy": 1.0
+            }
+          ],
+          "scattering_model": "neutral_IT92_no_dispersion",
+          "source": "nominal_demo_cell_and_explicit_monatomic_basis_v1"
+        },
+        "texture": {
+          "kind": "partial_fiber",
+          "num_orientations": 4096,
+          "seed": 1212,
+          "crystal_direction": [
+            0.0,
+            0.0,
+            1.0
+          ],
+          "sample_direction": [
+            0.0,
+            0.0,
+            1.0
+          ],
+          "spread_deg": 12.0,
+          "center_quaternion": [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "spin_center_deg": 35.0,
+          "spin_width_deg": 80.0,
+          "spin_kappa": 0.0,
+          "isotropic_fraction": 0.15,
+          "sample_to_lab_wxyz": [
+            0.7071067811865475,
+            0.0,
+            0.7071067811865475,
+            0.0
+          ]
+        },
+        "coherent_domain_nm": 8.0,
+        "shape_factor": 0.9
+      }
+    ],
+    "detector": {
+      "shape": [
+        512,
+        512
+      ],
+      "pixel_pitch_mm": 0.1,
+      "distance_mm": 60.0,
+      "beam_center_row_col": [
+        255.5,
+        255.5
+      ]
+    },
+    "wavelength_A": 0.5166,
+    "incident_flux_density_photons_s_um2": 10000000000.0,
+    "illuminated_volume_um3": 1.0,
+    "polarization": "unpolarized",
+    "pixel_subdivision": 4,
+    "comparison_subdivision": 2,
+    "support_sigma": 7.5,
+    "max_working_bytes": 268435456,
+    "background_rate_per_pixel": 0.05
+  },
+  "exposures": [
+    {
+      "exposure_id": "texture-boundary-forward",
+      "start_s": 0.0,
+      "stop_s": 0.1,
+      "center_at_zero_mm": -0.5,
+      "velocity_mm_s": 10.0,
+      "beam_width_mm": 0.2
+    },
+    {
+      "exposure_id": "texture-boundary-overlap",
+      "start_s": 0.05,
+      "stop_s": 0.15,
+      "center_at_zero_mm": -0.5,
+      "velocity_mm_s": 10.0,
+      "beam_width_mm": 0.2
+    }
+  ],
+  "integration": {
+    "atol": 0.001,
+    "rtol": 0.01,
+    "max_evaluations": 10000,
+    "max_intervals": 1024,
+    "max_depth": 24,
+    "max_working_bytes": 67108864
+  },
+  "max_total_evaluations": 100000,
+  "cache_memory_bytes": 67108864,
+  "readout": {
+    "root_seed": 1729,
+    "replicate_ids": [
+      701,
+      702
+    ]
+  }
+}

@@ -1,75 +1,113 @@
 # XRD Generator
 
-This repository generates synthetic 2D X-ray diffraction patterns from
-quaternion grain orientations and analytic Orientation Distribution Functions
-(ODFs). The maintained dataset path is a sputter/PVD broad-likelihood corpus
-for Bayesian inverse inference; it models film-normal fiber texture, sharp
-biaxial growth, and a Haar-uniform nanocrystalline escape channel.
+Generate two-dimensional X-ray diffraction data from explicit crystal structures
+and texture distributions. The `xray_generator` package combines static
+crystallographic phase responses with compact material recipes, moving-beam
+exposures, cached expectations, and native Poisson counts.
 
-The simulator is suitable for controlled identifiability experiments. It is
-not yet a calibrated experimental forward model: material structure factors,
-instrument response, background, counting noise, and the sample-specific
-microstructure prior still require validation against standards.
+The supported crystallographic profile is `static_kinematic_gaussian_v1`. It
+uses normalized reciprocal-space Gaussian peaks, atomic structure factors, and
+pixel-area detector integration. It currently represents a two-phase,
+homogenized material field with a fixed orientation population per phase.
+Absolute intensity has a dimensional model scale but has not been experimentally
+calibrated. Physical XRF simulation is not implemented.
 
-## Setup
+## Install
+
+Use Python 3.11 or 3.12. From a checkout, in your Python environment:
 
 ```bash
-brew install uv
-uv venv .venv
-uv pip install -e .
+python -m pip install -e .
 ```
 
-Run commands with `uv run`; this consistently uses the project environment.
+Installation provides the `xray-sim` and `xrd-generate` commands.
 
-## Maintained configurations
+## Run a simulation
 
-| Configuration | Purpose |
+The textured example defines nominal FCC Cu and HCP Ti cells, persistent
+orientation populations, a 512 by 512 detector, and moving exposures across a
+material interface.
+
+```bash
+xray-sim validate configs/v1/crystallographic_texture_demo.json
+xray-sim expected configs/v1/crystallographic_texture_demo.json --output datasets/texture_demo --cache-dir datasets/texture_cache
+xray-sim observe configs/v1/crystallographic_texture_demo.json --output datasets/texture_demo --cache-dir datasets/texture_cache
+```
+
+`validate` checks configuration consistency and reports capabilities without
+rendering a detector. `expected` computes clean expected counts and numerical
+error estimates. `observe` draws native Poisson counts using the configured
+readout seeds. Unsupported inputs, unresolved peak widths, and exhausted
+accuracy or work budgets cause the request to fail.
+
+For a fast acquisition and file-format example, use the synthetic reference
+configuration:
+
+```bash
+xray-sim observe configs/v1/reference_scan_fixture.json --output datasets/reference_demo --cache-dir datasets/reference_cache
+```
+
+Reference rates exercise acquisition, caching and readout; they do not predict
+physical XRD or XRF intensities.
+
+## Output and reproducibility
+
+An `expected` run writes one `.npz` file per expectation with `total_mean` and
+`numerical_error`. An `observe` run writes one checksummed directory per
+exposure/readout identity:
+
+| File | Contents |
 |---|---|
-| `balanced_symmetry_odf_pf_v1.json` | Matched 25k-per-class FCC/BCC/HCP benchmark with analytic ODF and realized PF/IPF targets. |
-| `continuous_odf_sputter_pvd_broad.json` | Stage-1 PVD/sputter broad-likelihood ODF corpus: FCC Cu, BCC Fe, and HCP Ti. |
-| `continuous_odf_phase_space_v2.json` | Unconstrained phase-space corpus for FCC Cu, BCC Fe, and HCP Ti; reproduces the prior PNG/TIFF layout. |
-| `curated_sputter_validation.json` | Small, interpretable Cu PVD validation sweeps for tilt, fiber arc width, and lopsidedness. |
-| `fcc_texture_grain_example.json` | Single-run FCC texture/grain simulation example. |
+| `observable.npz` | Nonnegative integer detector `counts`, suitable as simulated observations. |
+| `private.npz` | Clean `expected_mean` and `numerical_error`; keep these separate from model inputs when evaluating inference. |
+| `manifest.json` | Profile, identities, checksums, calibration flag and a reference to the run record. |
+| `.runs/<id>.json` in the output root | Shared normalized material, acquisition, scattering and readout configuration, runtime identity and expectation IDs. |
 
-Check the continuous corpus plan without generating data:
+`xray-sim inspect <bundle-directory>` verifies an observation bundle and its
+referenced run record. The versioned wire schemas retain the names
+`xray_generator.fixture_bundle/1` and `xray_generator.fixture_run/1`; the
+`profile` field distinguishes crystallographic data from synthetic fixtures.
+Keep the output root's `.runs` directory with its bundles to retain reconstructable
+simulation truth.
+
+Identical requests reuse clean expectations. Changing a readout replicate gives
+new noise without redrawing the material or texture. Changes to physical
+settings, source/runtime identity or requested accuracy invalidate incompatible
+cache entries. Completed observation bundles are verified on reuse. Counts and
+clean arrays are never normalized per image.
+
+See the [simulation contract](docs/simulation.md) for units, material mixing,
+texture conventions, numerical estimates and physical limits, and
+[atomic-data provenance](docs/atomic_data_provenance.md) for the bundled tables.
+
+## Compatibility
+
+The historical `src.*` API and `xrd-generate` command retain their existing
+relative-intensity behavior and configuration format:
 
 ```bash
-uv run --no-sync src/driver_codes/generate_continuous_odf_dataset.py \
-  configs/continuous_odf_sputter_pvd_broad.json --dry-run
+xrd-generate configs/fcc_texture_grain_example.json
 ```
 
-The production specification requests 10,000 ODFs for each crystal system,
-with one 6,000-grain observation per ODF. Start a staged run deliberately:
+See the [legacy configuration guide](docs/configuration.md). Its relative
+intensities and broadening options are distinct from the `xray-sim`
+crystallographic profile.
+
+## Development
+
+Install the test dependencies and run the suite:
 
 ```bash
-uv run --no-sync src/driver_codes/generate_continuous_odf_dataset.py \
-  configs/continuous_odf_sputter_pvd_broad.json --limit 100
+python -m pip install -e ".[test]"
+python -m pytest
 ```
 
-All dataset output belongs under `datasets/` and is ignored by Git. Each run is
-resumable through `manifest.jsonl`; do not use `--no-resume` against an
-existing corpus. See [the command reference](docs/texture_corpus_commands.md)
-for validation, sharding, and preview commands.
+For independent crystallographic comparisons, install the optional pinned Gemmi
+reference with `python -m pip install -e ".[validation]"`. These checks are
+skipped without Gemmi; it is not a simulation runtime dependency.
 
-## ODF targets and inference scope
+## License
 
-The continuous target is a variable-slot version-2 descriptor. With the PVD
-configuration's six component slots, it has 37 float32 values:
-
-```text
-[background (1), component weights (6), centers wxyz (24), FWHM degrees (6)]
-```
-
-Use the run's `odf_label_schema.json`, not hard-coded offsets. Metadata records
-the analytic texture index $J$, active-slot mask, component origin tag, and
-process family. The PVD sampler uses the intended per-component allocation:
-65% `sputter_fiber`, 20% `sputter_biaxial`, and 15%
-`nanocrystalline_uniform`.
-
-The physical construction and its limitations are documented in
-[scientific_texture_space.md](docs/scientific_texture_space.md). In particular,
-a finite mixture along a film-normal fiber approximates, but is not identical
-to, a continuous axisymmetric fiber ODF. A posterior learned from this corpus
-is conditional on this generator distribution; use experimentally derived
-information such as EBSD as an explicit prior or comparison distribution,
-rather than treating the corpus as universal texture support.
+The simulator is distributed under [Apache-2.0](LICENSE). The selected Gemmi
+atomic-data subset retains its separate MPL-2.0 license and attribution, as
+described in [atomic-data provenance](docs/atomic_data_provenance.md).
