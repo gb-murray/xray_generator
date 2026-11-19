@@ -1,10 +1,64 @@
 [tool.poetry]
 name = "2d-xray-generator"
-version = "0.1.0"
-description = ""
+version = "0.3.0.dev0"
+description = "Reproducible 2D X-ray diffraction simulation with texture, moving acquisitions, and native photon counts."
+license = "Apache-2.0"
 authors = ["harrison1125"]
 readme = "README.md"
-packages = [{ include = "src" }]
+# Keep the historical src.* API without recursively installing the new
+# src/xray_generator package a second time as src.xray_generator.
+packages = [
+    { include = "src/classes_and_functions" },
+    { include = "src/driver_codes" },
+    { include = "xray_generator", from = "src" },
+]
+# Explicit public assets keep local reports out of source distributions.
+include = [
+    { path = "src/__init__.py", format = ["sdist", "wheel"] },
+    { path = "src/driver_codes/materials.csv", format = ["sdist", "wheel"] },
+    { path = "src/xray_generator/physics/data/*.json", format = ["sdist", "wheel"] },
+    { path = "src/xray_generator/physics/data/*.txt", format = ["sdist", "wheel"] },
+    { path = "configs/balanced_symmetry_odf_pf_v1.json", format = "sdist" },
+    { path = "configs/continuous_odf_phase_space_v2.json", format = "sdist" },
+    { path = "configs/continuous_odf_sputter_pvd_broad.json", format = "sdist" },
+    { path = "configs/curated_sputter_validation.json", format = "sdist" },
+    { path = "configs/fcc_texture_grain_example.json", format = "sdist" },
+    { path = "configs/v1/reference_scan_fixture.json", format = "sdist" },
+    { path = "configs/v1/crystallographic_texture_demo.json", format = "sdist" },
+    { path = "docs/simulation.md", format = "sdist" },
+    { path = "docs/atomic_data_provenance.md", format = "sdist" },
+    { path = "docs/configuration.md", format = "sdist" },
+    { path = "docs/orientation_and_texture.md", format = "sdist" },
+    { path = "tools/run_fixture.py", format = "sdist" },
+    { path = "tools/check_wheel.py", format = "sdist" },
+    { path = "tools/validate_physics.py", format = "sdist" },
+    { path = "tools/validate_texture_demo.py", format = "sdist" },
+    { path = "tools/preview_texture_demo.py", format = "sdist" },
+    { path = "tests/test_adaptive_integration.py", format = "sdist" },
+    { path = "tests/test_crystallographic_edges.py", format = "sdist" },
+    { path = "tests/test_crystallographic_pipeline.py", format = "sdist" },
+    { path = "tests/test_crystallographic_texture.py", format = "sdist" },
+    { path = "tests/test_crystallography.py", format = "sdist" },
+    { path = "tests/test_diffraction_references.py", format = "sdist" },
+    { path = "tests/test_expectation_cache.py", format = "sdist" },
+    { path = "tests/test_forward_api.py", format = "sdist" },
+    { path = "tests/test_material_api_contracts.py", format = "sdist" },
+    { path = "tests/test_native_observations.py", format = "sdist" },
+    { path = "tests/test_orientation_texture.py", format = "sdist" },
+    { path = "tests/test_packaging_legacy.py", format = "sdist" },
+    { path = "tests/test_physical_scattering.py", format = "sdist" },
+    { path = "tests/test_procedural_material.py", format = "sdist" },
+    { path = "tests/test_reciprocal_kernel.py", format = "sdist" },
+    { path = "tests/test_texture_demo_metrics.py", format = "sdist" },
+    { path = "tests/fixtures/legacy_baseline_v1.npz", format = "sdist" },
+    { path = "tests/fixtures/legacy_expectations.json", format = "sdist" },
+]
+exclude = [
+    "**/__pycache__/**", "**/.DS_Store", "datasets/**", "local/**", "research/**",
+    "validation_reports/**", "docs/m0*", "docs/m3b*", "docs/migration_baseline.json",
+    "docs/simulator_architecture.md", "docs/wheel_validation.json",
+    "tools/capture_baseline.py", "tools/validate_m3b.py", "tests/test_m3b_independent.py",
+]
 
 [tool.poetry.dependencies]
 python = ">=3.11,<3.13"
@@ -16,9 +70,16 @@ imageio = "^2.37.0"
 pillow = "^11.3.0"
 tifffile = "^2025.6.11"
 h5py = "^3.13.0"
+pytest = { version = ">=8", optional = true }
+gemmi = { version = "==0.7.5", optional = true }
+
+[tool.poetry.extras]
+test = ["pytest"]
+validation = ["pytest", "gemmi"]
 
 [tool.poetry.scripts]
 xrd-generate = "src.driver_codes.run_experiment:main"
+xray-sim = "xray_generator.cli:main"
 
 
 [build-system]

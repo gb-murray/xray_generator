@@ -1,0 +1,8 @@
+# Publish only maintained package utilities.
+*
+!.gitignore
+!run_fixture.py
+!check_wheel.py
+!validate_physics.py
+!validate_texture_demo.py
+!preview_texture_demo.py

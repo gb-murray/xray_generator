@@ -26,6 +26,7 @@
 # explicitly with `git add -f`.
 *.npy
 *.npz
+!tests/fixtures/legacy_baseline_v1.npz
 *.h5
 *.hdf5
 *.tif
@@ -203,3 +204,8 @@ cython_debug/
 
 # PyPI configuration file
 .pypirc
+
+# Private notes, validation reports and local experiments.
+/local/
+/research/
+/validation_reports/
